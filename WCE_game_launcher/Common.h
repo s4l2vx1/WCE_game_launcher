@@ -8,7 +8,7 @@ namespace Config
 	// Web アプリを起動する際に使用する Web ブラウザのパス
 # if SIV3D_PLATFORM(WINDOWS)
 
-	const FilePath BrowserPath = U"C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe";
+	const FilePath BrowserPath = U"C:/Program Files/Google/Chrome/Application/chrome.exe";
 
 # elif SIV3D_PLATFORM(MACOS)
 
@@ -130,7 +130,7 @@ struct Game
 	bool useGamepad = false;
 
 	// ランチャー表示優先度（大きいほど優先）
-	int32 priority = 0;
+	String priorityStr = U"a";
 
 	double mouseOverScale = 1;
 	double mouseOverScaleVel = 0;
@@ -214,7 +214,7 @@ inline Array<Game> LoadGames()
 		game.useMouse = ini.get<bool>(U"Game.mouse");
 		game.useKeyboard = ini.get<bool>(U"Game.keyboard");
 		game.useGamepad = ini.get<bool>(U"Game.gamepad");
-		game.priority = ini.get<int32>(U"Game.priority");
+		game.priorityStr = ini[U"Game.priority"];
 
 		const String path = game.path = ini[U"Game.path"];
 		game.isWebApp = IsURL(path);
@@ -228,7 +228,7 @@ inline Array<Game> LoadGames()
 	}
 
 	// プライオリティに基づいてゲームをソート
-	return games.sort_by([](const Game& a, const Game& b) { return a.priority > b.priority; });
+	return games.sort_by([](const Game& a, const Game& b) { return a.priorityStr > b.priorityStr; });
 }
 
 class ScopedRenderTarget2DWithTransformReset :Uncopyable {

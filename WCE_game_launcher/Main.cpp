@@ -38,7 +38,7 @@ void Main()
 	Master master;
 
 	Window::Resize(Scene::Size() / 2);
-	Window::SetFullscreen(false);
+	Window::SetFullscreen(SIV3D_BUILD(RELEASE));
 
 	SingleUseCursorPos cursorPos;
 	
