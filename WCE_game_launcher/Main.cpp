@@ -28,7 +28,10 @@ void Main()
 	Scene::Resize(1920, 1080);
 	Scene::SetResizeMode(ResizeMode::Keep);
 	Window::SetStyle(WindowStyle::Sizable);
-	//Window::Maximize();
+	if (SIV3D_BUILD(RELEASE))
+	{
+		Window::Maximize();
+	}
 	//Window::SetStyle(UI::Frameless ? WindowStyle::Frameless : WindowStyle::Fixed);
 	Scene::SetBackground(UI::BackgroundColor);
 
